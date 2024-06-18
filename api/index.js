@@ -1,10 +1,8 @@
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
-// const cors = require('cors');
+const cors = require("cors");
 const route = require("./features/route");
-const authRoutes = require("./routes/auth");
-const db = require("./db");
 const app = express();
 const {
   addUser,
@@ -13,11 +11,26 @@ const {
   removeUser,
 } = require("./features/users");
 
-// app.use(cors({ origin: '*' }));
+const allowedOrigins = ["https://comm-net.vercel.app/"]; // Replace with your actual Vercel frontend URL
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Allow requests with no origin
+      // (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg =
+          "The CORS policy for this site does not allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+  })
+);
+
 app.use(route);
 app.use(express.json());
-app.use(route);
-app.use("/auth", authRoutes);
 
 const server = http.createServer(app);
 
