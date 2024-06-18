@@ -11,20 +11,16 @@ const {
   removeUser,
 } = require("./features/users");
 
-const allowedOrigins = ["https://comm-net.vercel.app/"]; // Replace with your actual Vercel frontend URL
+const allowedOrigins = ["https://comm-net.vercel.app"]; // Replace with your actual Vercel frontend URL
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin
-      // (like mobile apps or curl requests)
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        const msg =
-          "The CORS policy for this site does not allow access from the specified Origin.";
-        return callback(new Error(msg), false);
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
       }
-      return callback(null, true);
     },
   })
 );
@@ -36,7 +32,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
   },
 });
