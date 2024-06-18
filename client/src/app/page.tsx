@@ -3,7 +3,6 @@
 import Link from "next/link";
 import styles from "./page.module.css";
 import { FormEvent, useState } from "react";
-import Signup from "./Auth/signup";
 
 interface FormValues {
   name: string;
