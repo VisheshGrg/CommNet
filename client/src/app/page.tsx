@@ -55,34 +55,35 @@ export default function Home() {
           </p>
         )}
 
-        {loading && <div className={`${styles.loader}`}>Loading...</div>}
+        {loading && <div className={`${styles.loader}`}></div>}
 
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <div>
-            <input
-              type="text"
-              name="name"
-              value={values.name}
-              placeholder="Username"
-              className={styles.input}
-              onChange={handleChange}
-              autoComplete="off"
-              required
-              //
-            />
-            <input
-              type="text"
-              name="room"
-              placeholder="Room Number"
-              value={values.room}
-              className={styles.input}
-              onChange={handleChange}
-              autoComplete="off"
-              required
-              //
-            />
-          </div>
-          {/* <Link href={`/chat?name=${values.name}&room=${values.room}`}>
+        {!loading && (
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <div>
+              <input
+                type="text"
+                name="name"
+                value={values.name}
+                placeholder="Username"
+                className={styles.input}
+                onChange={handleChange}
+                autoComplete="off"
+                required
+                //
+              />
+              <input
+                type="text"
+                name="room"
+                placeholder="Room Number"
+                value={values.room}
+                className={styles.input}
+                onChange={handleChange}
+                autoComplete="off"
+                required
+                //
+              />
+            </div>
+            {/* <Link href={`/chat?name=${values.name}&room=${values.room}`}>
             <button
               className={styles.button_submit}
               type="submit"
@@ -95,18 +96,19 @@ export default function Home() {
               Go
             </button>
           </Link> */}
-          <button
-            className={styles.button_submit}
-            type="submit"
-            disabled={!isFormValid || loading}
-            style={{
-              opacity: isFormValid ? 1 : 0.5,
-              backgroundColor: isFormValid ? "#69579c" : "gray",
-            }}
-          >
-            Go
-          </button>
-        </form>
+            <button
+              className={styles.button_submit}
+              type="submit"
+              disabled={!isFormValid || loading}
+              style={{
+                opacity: isFormValid ? 1 : 0.5,
+                backgroundColor: isFormValid ? "#69579c" : "gray",
+              }}
+            >
+              Go
+            </button>
+          </form>
+        )}
       </div>
     </main>
   );
