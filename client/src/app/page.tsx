@@ -12,6 +12,7 @@ interface FormValues {
 export default function Home() {
   const [values, setValues] = useState<FormValues>({ name: "", room: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = ({
     target: { value, name },
@@ -19,11 +20,20 @@ export default function Home() {
     setValues({ ...values, [name]: value });
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setSubmitted(true);
     const isDisabled = Object.values(values).some((value) => !value);
 
-    if (isDisabled) event.preventDefault();
+    if (isDisabled) return;
+
+    setLoading(true);
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    setLoading(false);
+
+    window.location.href = `/chat?name=${values.name}&room=${values.room}`;
   };
 
   const isFormValid = values.name.trim() !== "" && values.room.trim() !== ""; // Check if both fields are not empty
@@ -44,6 +54,8 @@ export default function Home() {
             Username or room number invalid! Please try again.
           </p>
         )}
+
+        {loading && <div className={`${styles.loader}`}>Loading...</div>}
 
         <form className={styles.form} onSubmit={handleSubmit}>
           <div>
@@ -70,11 +82,11 @@ export default function Home() {
               //
             />
           </div>
-          <Link href={`/chat?name=${values.name}&room=${values.room}`}>
+          {/* <Link href={`/chat?name=${values.name}&room=${values.room}`}>
             <button
               className={styles.button_submit}
               type="submit"
-              disabled={!isFormValid}
+              disabled={!isFormValid || loading}
               style={{
                 opacity: isFormValid ? 1 : 0.5,
                 backgroundColor: isFormValid ? "#69579c" : "gray",
@@ -82,7 +94,18 @@ export default function Home() {
             >
               Go
             </button>
-          </Link>
+          </Link> */}
+          <button
+            className={styles.button_submit}
+            type="submit"
+            disabled={!isFormValid || loading}
+            style={{
+              opacity: isFormValid ? 1 : 0.5,
+              backgroundColor: isFormValid ? "#69579c" : "gray",
+            }}
+          >
+            Go
+          </button>
         </form>
       </div>
     </main>
