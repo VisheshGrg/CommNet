@@ -92,6 +92,12 @@
   -webkit-background-clip: text;
 }
 
+@media only screen and (max-width: 950px) {
+  .heading {
+    font-size: 3rem;
+  }
+}
+
 .tagline {
   font-size: 1rem;
   color: #adb5bd;
@@ -141,5 +147,35 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .main {
+    flex-direction: column;
+  }
+  .container_left {
+    width: 100%;
+    height: 70vh;
+    padding: 4rem;
+    align-items: center;
+    text-align: center;
+  }
+  .container_right {
+    width: 100%;
+    height: auto;
+    align-items: center;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .container_left {
+    padding: 1.6rem;
+  }
+  .container_right {
+    padding: 2rem;
+  }
+  .join_headline {
+    font-size: 1.4rem;
   }
 }

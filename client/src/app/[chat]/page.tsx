@@ -79,7 +79,7 @@ const ChatPage = ({ searchParams }: any) => {
       <section className="main">
         <div className="container">
           <div className={styles.header_container}>
-            <h1>Chat Room: {room}</h1>
+            <h1 className={styles.header_chat}>Chat Room: {room}</h1>
             <button className={styles.back_btn} onClick={leftOfTheRoom}>
               Exit Room
             </button>

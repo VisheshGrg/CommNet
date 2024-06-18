@@ -48,7 +48,7 @@ export default function Home() {
         </p>
       </div>
       <div className={`${styles.container_right}`}>
-        <h1 className={`${styles.join_headline}`}>Join/Create Room</h1>
+        <p className={`${styles.join_headline}`}>Join/Create Room</p>
         {submitted && !isFormValid && (
           <p className={`${styles.error}`}>
             Username or room number invalid! Please try again.

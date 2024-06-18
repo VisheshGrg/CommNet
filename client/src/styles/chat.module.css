@@ -3,15 +3,9 @@
   background: rgba(97, 97, 97, 0.082);
   display: flex;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
+  padding: 1rem 1rem;
   align-items: center;
   height: auto;
-}
-
-@media only screen and (min-width: 750px) {
-  .header_container {
-    display: none;
-  }
 }
 
 .messages_container {
@@ -203,4 +197,31 @@
 .admin {
   background-color: #fbab7e;
   background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
+}
+
+@media only screen and (max-width: 1000px) {
+  .heading {
+    font-size: 3rem;
+  }
+  .chat_username {
+    font-size: 1rem;
+  }
+  .chat_users {
+    font-size: 1rem;
+  }
+  .chat_room {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .header_container {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 330px) {
+  .header_room {
+    font-size: 1rem;
+  }
 }

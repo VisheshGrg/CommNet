@@ -117,8 +117,8 @@ a {
   height: 100vh;
   /* padding: 3rem; */
   /* border: 1px solid white; */
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  /* border-top-left-radius: 20px;
+  border-top-right-radius: 20px; */
   /* border: 0.05rem solid rgba(156, 156, 156, 0.274); */
   /* border-radius: var(--border-radius); */
   /* background-color: #2525252a; */
@@ -146,15 +146,6 @@ a {
   gap: 1.2rem;
 }
 
-@media only screen and (max-width: 750px) {
-  .room_details {
-    display: none;
-  }
-  .main {
-    width: 100%;
-  }
-}
-
 h1,
 h2,
 h3,
@@ -168,4 +159,22 @@ p {
 input,
 button {
   box-sizing: border-box; /* Включаем padding и border в вычисление ширины и высоты элемента */
+}
+
+@media only screen and (max-width: 1000px) {
+  .room_details {
+    width: 40%;
+  }
+  .main {
+    width: 60%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .room_details {
+    display: none;
+  }
+  .main {
+    width: 100%;
+  }
 }
