@@ -67,7 +67,9 @@ const ChatPage = ({ searchParams }: any) => {
 
   if(users.length==0){
     return(
-      <div className={`${styles2.loader}`}></div>
+      <div>
+        <div className={`${styles2.loader}`}></div>
+      </div>
     )
   }
 
