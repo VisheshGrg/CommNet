@@ -4,6 +4,7 @@ import { io, Socket } from "socket.io-client";
 import styles from "@/styles/chat.module.css";
 import { useRouter } from "next/navigation";
 import { getDate } from "@/features/getDate";
+import styles2 from "../page.module.css";
 
 // Create a single instance of the socket
 let socket: Socket | null = null;
@@ -15,18 +16,19 @@ const ChatPage = ({ searchParams }: any) => {
   const { name, room } = searchParams;
   const router = useRouter();
   const URL = process.env.NEXT_PUBLIC_URL || "localhost:5000";
+  // const URL = "http://localhost:5000";
 
   useEffect(() => {
     if (!socket) {
       socket = io(URL);
 
       socket.on("connect", () => {
-        console.log("Connected to server!");
+        // console.log("Connected to server!");
 
         socket?.emit("join", { name: name, room: room });
 
         socket?.on("message", (data) => {
-          console.log("Message from server:", data);
+          // console.log("Message from server:", data);
           setMessages((prevMessages) => [...prevMessages, data]);
         });
 
@@ -62,6 +64,12 @@ const ChatPage = ({ searchParams }: any) => {
     socket?.emit("leftRoom", { params: { name, room } });
     router.replace("/");
   };
+
+  if(users.length==0){
+    return(
+      <div className={`${styles2.loader}`}></div>
+    )
+  }
 
   return (
     <div className="main_cont">

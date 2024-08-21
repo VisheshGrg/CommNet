@@ -12,6 +12,7 @@ const {
 } = require("./features/users");
 
 const allowedOrigins = ["https://comm-net.vercel.app"]; // Replace with your actual Vercel frontend URL
+// const allowedOrigins = ["http://localhost:3000"]; // Replace with your actual Vercel frontend URL
 
 app.use(cors());
 app.use(route);
