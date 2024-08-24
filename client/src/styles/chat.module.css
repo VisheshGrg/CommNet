@@ -199,6 +199,10 @@
   background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
 }
 
+.aibot {
+  background-image: linear-gradient(to right, #ec77ab 0%, #7873f5 100%);
+}
+
 @media only screen and (max-width: 1000px) {
   .heading {
     font-size: 3rem;

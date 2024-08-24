@@ -1,3 +1,4 @@
+require("dotenv").config({ path: "../.env" });
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
@@ -10,6 +11,8 @@ const {
   getRoomUsers,
   removeUser,
 } = require("./features/users");
+
+const {GoogleGenerativeAI} = require("@google/generative-ai");
 
 const allowedOrigins = ["https://comm-net.vercel.app"]; // Replace with your actual Vercel frontend URL
 // const allowedOrigins = ["http://localhost:3000"]; // Replace with your actual Vercel frontend URL
@@ -27,6 +30,8 @@ const io = new Server(server, {
   },
 });
 
+const genAI = new GoogleGenerativeAI(`${process.env.API_KEY}`);
+
 io.on("connection", (socket) => {
   socket.on("join", ({ name, room }) => {
     socket.join(room);
@@ -35,7 +40,7 @@ io.on("connection", (socket) => {
 
     const userMessage = isExist
       ? `${user.name}, Welcome back.`
-      : `${user.name}, Successfully added in the chat room. Here you will see all the real-time messages from all members present in the room`;
+      : `${user.name}, Successfully added in the chat room. Here you will see all the real-time messages from all members present in the room. Start message with / to get AI generate response.`;
 
     socket.emit("message", {
       data: { user: { name: "Admin" }, message: userMessage },
@@ -50,11 +55,28 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.on("sendMessage", ({ message, params }) => {
+  socket.on("sendMessage", async ({ message, params }) => {
     const user = findUser(params);
 
     if (user) {
       io.to(user.room).emit("message", { data: { user, message } });
+      if(message.startsWith("/")){
+        try{
+          const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"});
+          const result = await model.generateContent(message.substring(1));
+          const response = await result.response;
+          const aiMessage = await response.text();
+
+          io.to(user.room).emit("message", {
+            data: {user: {name: "AIBOT"}, message: aiMessage},
+          });
+        }catch(error){
+          console.log(error);
+          io.to(user.room).emit("message", {
+            data: {user: {name: "Admin"}, message: "Error generating AI response."},
+          });
+        }
+      }
     }
   });
 

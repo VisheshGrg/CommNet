@@ -16,6 +16,7 @@ const ChatPage = ({ searchParams }: any) => {
   const { name, room } = searchParams;
   const router = useRouter();
   const URL = process.env.NEXT_PUBLIC_URL || "localhost:5000";
+  console.log(URL);
   // const URL = "http://localhost:5000";
 
   useEffect(() => {
@@ -107,7 +108,7 @@ const ChatPage = ({ searchParams }: any) => {
                   msg.data.user.name === name
                     ? styles.user_message
                     : styles.other_message
-                } ${msg.data.user.name === "Admin" ? styles.admin : ""}`}
+                } ${msg.data.user.name === "Admin" ? styles.admin : msg.data.user.name==="AIBOT" ? styles.aibot : ""}`}
               >
                 {msg.data.user.name !== name && (
                   <strong className={styles.username}>
