@@ -40,7 +40,7 @@ io.on("connection", (socket) => {
 
     const userMessage = isExist
       ? `${user.name}, Welcome back.`
-      : `${user.name}, Successfully added in the chat room. Here you will see all the real-time messages from all members present in the room. Start message with / to get AI generate response.`;
+      : `${user.name}, Successfully added in the chat room. Here you will see all the real-time messages from all members present in room. Start message with / to get AI generate response.`;
 
     socket.emit("message", {
       data: { user: { name: "Admin" }, message: userMessage },
@@ -64,8 +64,8 @@ io.on("connection", (socket) => {
         try{
           const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"});
           const result = await model.generateContent(message.substring(1));
-          const response = await result.response;
-          const aiMessage = await response.text();
+          const response = result.response;
+          const aiMessage = response.text();
 
           io.to(user.room).emit("message", {
             data: {user: {name: "AIBOT"}, message: aiMessage},
