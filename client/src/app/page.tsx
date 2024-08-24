@@ -43,8 +43,7 @@ export default function Home() {
       <div className={`${styles.container_left}`}>
         <p className={`${styles.heading}`}>CommNet</p>
         <p className={`${styles.tagline}`}>
-          Effortless Real-Time Communication: Create Rooms, Join Chats, and Stay
-          Connected!
+          Effortless Real-Time Communication: Create Rooms, Join Chats, and Stay Connected—now with built-in AI.
         </p>
       </div>
       <div className={`${styles.container_right}`}>

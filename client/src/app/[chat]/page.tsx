@@ -16,7 +16,6 @@ const ChatPage = ({ searchParams }: any) => {
   const { name, room } = searchParams;
   const router = useRouter();
   const URL = process.env.NEXT_PUBLIC_URL || "localhost:5000";
-  console.log(URL);
   // const URL = "http://localhost:5000";
 
   useEffect(() => {
